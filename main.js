@@ -4,6 +4,7 @@
 // app, which controls your application's event lifecycle
 // BrowserWindow, which creates and manages app windows
 const { app, BrowserWindow, ipcMain } = require('electron/main')
+const { Add } = require('./build/Release/Addon.node');
 const path = require('node:path')
 
 // The createWindow() function loads your web page into a new BrowserWindow instance
@@ -12,10 +13,10 @@ const createWindow = () => {
         width: 800,
         height: 600,
         webPreferences: {
-            // attach this script to your renderer process
-            preload: path.join(__dirname, 'preload.js')
+            preload: path.join(__dirname, 'preload.js') // attach this script to your renderer process
         }
     })
+
     win.loadFile('index.html')
 }
 
@@ -24,6 +25,10 @@ const createWindow = () => {
 app.whenReady().then(() => {
     // set up handler for 'ping' received from renderer
     ipcMain.handle('ping', () => 'pong')
+    ipcMain.handle('add', async (e, ...args) => {
+        const result = await Add(...args)
+        return result
+    })
 
     createWindow()
 
