@@ -1,0 +1,15 @@
+{
+  "name": "electron-cpp-sample",
+  "version": "1.0.0",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Casey Yelland",
+  "license": "MIT",
+  "description": "Test run of setting up Electron with C++ backend",
+  "devDependencies": {
+    "electron": "^31.0.2"
+  }
+}
