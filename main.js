@@ -3,9 +3,7 @@
 
 // app, which controls your application's event lifecycle
 // BrowserWindow, which creates and manages app windows
-// TODO: TS requires main to be specified
-// const { app, BrowserWindow } = require('electron/main')
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow, ipcMain } = require('electron/main')
 const path = require('node:path')
 
 // The createWindow() function loads your web page into a new BrowserWindow instance
@@ -24,6 +22,9 @@ const createWindow = () => {
 // Electron exposes app.whenReady() as a helper specifically for the ready event to avoid subtle
 // pitfalls with directly listening to that event in particular
 app.whenReady().then(() => {
+    // set up handler for 'ping' received from renderer
+    ipcMain.handle('ping', () => 'pong')
+
     createWindow()
 
     // macOS apps generally continue running even without any windows open. Activating the app when no windows
